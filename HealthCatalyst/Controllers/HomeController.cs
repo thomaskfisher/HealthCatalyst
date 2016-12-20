@@ -1,13 +1,19 @@
-﻿using System;
+﻿using HealthCatalyst.DAL;
+using HealthCatalyst.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace HealthCatalyst.Controllers
 {
     public class HomeController : Controller
     {
+        HealthCatalystContext db = new HealthCatalystContext();
+
         public ActionResult Index()
         {
             return View();
@@ -15,15 +21,11 @@ namespace HealthCatalyst.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

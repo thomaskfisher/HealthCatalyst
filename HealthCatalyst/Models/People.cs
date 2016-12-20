@@ -25,6 +25,7 @@ namespace HealthCatalyst.Models
         public string lastName { get; set; }
 
         [EmailAddress]
+        [DisplayName("Email Address")]
         public string email { get; set; }
 
         [Required(ErrorMessage = "Your street address is required")]
@@ -54,7 +55,7 @@ namespace HealthCatalyst.Models
         [DisplayName("Interests")]
         public string interests { get; set; }
 
-        [Required(ErrorMessage = "A picture is required")]
+        //[Required(ErrorMessage = "A picture is required")]
         [DisplayName("Picture")]
         public byte[] picture { get; set; }
     }
