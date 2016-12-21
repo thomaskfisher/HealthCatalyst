@@ -1,0 +1,96 @@
+﻿@model IEnumerable<HealthCatalyst.Models.People>
+
+@{
+    ViewBag.Title = "Results";
+}
+
+<h3>Search Results</h3>
+
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.firstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.state)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.zipcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.interests)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.picture)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.firstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.city)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.state)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.zipcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.age)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.interests)
+        </td>
+        <td>
+            @{
+                var base64 = Convert.ToBase64String(item.picture);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            }
+            <img src='@imgSrc' width="200px" height="auto" class="thumbnail" />
+        </td>
+        <td>
+            <a class="btn btn-info btn-xs" href="@Url.Action("Edit", "People", new { id = item.personID })"><span class="glyphicon glyphicon-edit"></span>Edit</a>
+            <br /><br />
+            <a class="btn btn-danger btn-xs" href="@Url.Action("Delete", "People", new { id = item.personID })"><span class="glyphicon glyphicon-remove"></span>Remove</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<br />
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

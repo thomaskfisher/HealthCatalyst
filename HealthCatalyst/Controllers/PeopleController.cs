@@ -176,5 +176,89 @@ namespace HealthCatalyst.Controllers
             }
             return RedirectToAction("Index", "People");
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //public ActionResult Step1()
+        //{
+        //    return View();
+        //}
+
+        //public PartialViewResult SearchPeople(string keyword)
+        //{
+        //    System.Threading.Thread.Sleep(2000);
+        //    var data = db.Peoples.Where(f => f.firstName.StartsWith(keyword)).ToList();
+        //    return PartialView(data);
+        //}
+
+        public ActionResult Results(string keyword1, string keyword2)
+        {
+            System.Threading.Thread.Sleep(2000);
+            
+            var data = db.Peoples.Where(s => s.lastName.Contains(keyword2));
+
+            string concat = keyword1 + " " + keyword2;
+
+
+            if (!String.IsNullOrEmpty(keyword1) && String.IsNullOrEmpty(keyword2))
+            {
+                var data1 = db.Peoples.Where(s => s.firstName.Contains(keyword1));
+                return View(data1);
+            }
+            else if (!String.IsNullOrEmpty(keyword2) && String.IsNullOrEmpty(keyword1))
+            {
+                var data2 = db.Peoples.Where(s => s.lastName.Contains(keyword2));
+                return View(data2);
+            }
+            else
+            {
+                var strings = concat.Split(' ');
+                var finalPosts = new List<People>();
+                if (!String.IsNullOrEmpty(concat))
+                {
+                    foreach (var splitString in strings)
+                    {
+                        finalPosts.Add(db.Peoples.FirstOrDefault(s => s.firstName.Contains(splitString)));
+                        finalPosts.Add(db.Peoples.FirstOrDefault(s => s.lastName.Contains(splitString)));
+
+                        //WHAT IF THERE ARE MULTIPLE PEOPLE WITH THE SAME FIRST AND/OR LAST NAME??????
+                        //db.Peoples.SelectMany
+                        //db.Peoples.ToArray
+                        //db.Peoples.ToList
+                    }
+                }
+                //return View(finalPosts);
+            }
+
+
+            //var data = db.Peoples.Where(f => f.firstName.StartsWith(keyword)).ToList();
+            return View(data);
+        }
+
+        //public ActionResult IndexJson()
+        //{
+        //    return View();
+        //}
+
+        //public JsonResult SearchPeopleJson(string keyword)
+        //{
+        //    var data = db.Peoples.Where(f => f.firstName.Contains(keyword)).ToList();
+
+        //    var jsonData = Json(data, JsonRequestBehavior.AllowGet);
+        //    return jsonData;
+        //}
     }
 }

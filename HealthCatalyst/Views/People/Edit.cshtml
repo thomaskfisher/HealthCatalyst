@@ -9,17 +9,29 @@
 @using (Html.BeginForm("Edit", "People", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.personID)
 
-        @{
-            var base64 = Convert.ToBase64String(Model.picture);
-            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-        }
-        <img src='@imgSrc' width="200px" height="auto" class="thumbnail" />
+    <hr />
+    <div class="form-horizontal">
+       <div class="container">
+           <div class="row">
+               <div class="col-md-2 col-md-offset-1">
+                   @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                   @Html.HiddenFor(model => model.personID)
+
+                   @{
+                        var base64 = Convert.ToBase64String(Model.picture);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                   }
+                   <img src='@imgSrc' width="200px" height="auto" class="thumbnail" />
+               </div>
+               <div class="col-md-2">
+                    <a class="btn btn-info" href="@Url.Action("EditImage", "People", new { id = Model.personID })">Change Picture</a>
+               </div>
+           </div>
+ 
+       </div>
+
+        <br />
 
         <div class="form-group">
             @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -110,16 +122,16 @@
             </div>
         </div>*@
 
+        <br />
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Submit" class="btn btn-default" />
+                <input type="submit" value="Submit" class="btn btn-primary" />
             </div>
         </div>
     </div>
-
-    <a class="btn btn-info" href="@Url.Action("EditImage", "People", new { id = Model.personID })">Change Picture</a>
 }
-
+<br />
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
